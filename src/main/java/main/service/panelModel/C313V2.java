@@ -4,16 +4,19 @@ import main.service.CallPanel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class R28 extends CallPanel {
-    public R28(String ip, String login, String password) {
+public class C313V2 extends CallPanel {
+    public C313V2(String ip, String login, String password) {
         super(ip, login, password);
     }
 
-    @Override
     public void init() {
         try {
             WebElement usernameLabel = getElementById("username");
@@ -32,6 +35,16 @@ public class R28 extends CallPanel {
     }
 
 
+    private static void ttt(ChromeDriver driver) {
+
+        WebElement form = driver.findElement(By.name("body_form"));
+
+        List<WebElement> labels = form.findElements(By.tagName("label"));
+
+        for (WebElement label : labels) {
+            System.out.println(label.getText());
+        }
+    }
     public List<String> getInfoElements() {
 
         WebElement form = driver.findElement(By.name("body_form"));
@@ -39,15 +52,15 @@ public class R28 extends CallPanel {
         List<WebElement> labels = form.findElements(By.tagName("label"));
         List<String> panelInfo = new ArrayList<>();
 
-        panelInfo.add(find(labels, "Model"));
-        panelInfo.add(find(labels, "Hardware"));
-        panelInfo.add(find(labels, "Firmware"));
+        panelInfo.add(find(labels, "Модель"));
+        panelInfo.add(find(labels, "оборудован"));
+        panelInfo.add(find(labels, "прошивк"));
         panelInfo.add(find(labels, "MAC"));
-        panelInfo.add(find(labels, "IP"));
+        panelInfo.add(find(labels, "IP-адрес"));
 
         return panelInfo;
     }
-    public String find(List<WebElement> labels, String contain) {
+    public static String find(List<WebElement> labels, String contain) {
         for (int i = 0; i < labels.size() - 1; i++) {
             if (labels.get(i).getText().contains(contain)) {
                 return labels.get(i).getText() + " " + labels.get(i + 1).getText();
